@@ -1,0 +1,50 @@
+h1{
+  margin-left: 10px;
+  font-size:32px;
+  cursor: pointer;
+  font-family: "Playfair Display";
+  color: #FFFFFF;
+}
+mat-toolbar{
+  background-color: #0A2558;
+}
+
+.cont{
+  margin: 0 6%;
+}
+
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+.userImage {
+  border-radius: 50%;
+  width: 50px;
+  margin-left: 50px;
+}
+
+.userButton{
+  font-family: "Source Sans Pro";
+  background-color: transparent;
+  border:none;
+}
+.iconNav{
+  background-color: transparent;
+  /*color: blue;*/
+  border: none;
+  font-size: 2em;
+  margin:0 5%;
+  color: #FFF;
+
+}
+
+.navItem{
+  font-family: "Source Sans Pro";
+  color: #FFF;
+  cursor:pointer;
+
+}
+
+.navItem:hover{
+  text-shadow: rgba(0, 0, 0, 0.5) 0px 5px 15px;
+}

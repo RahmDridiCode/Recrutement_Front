@@ -1,0 +1,50 @@
+<mat-toolbar>
+  <div class="cont">
+    <h1 routerLink="/"><mat-icon>school</mat-icon> Jobs</h1>
+  </div>
+  <p style="margin:auto" class="navItem" routerLink="/contact">Contact</p>
+  <span class="example-spacer">
+
+  </span>
+  <div class="cont">
+
+    <button *ngIf="auth.isloggedIn && auth.isRH()" class="btn btn-secondary" aria-label="Example icon-button with heart icon" routerLink="/addOffre">
+      Ajouter Une Offre
+    </button>
+    <button *ngIf="!auth.isloggedIn" class="iconNav navItem" aria-label="Example icon-button with heart icon" routerLink="/login">
+      <mat-icon>login</mat-icon>
+    </button>
+    <button *ngIf="!auth.isloggedIn" class="iconNav navItem" routerLink="/signup">
+      <mat-icon>person_add</mat-icon>
+    </button>
+
+    <button *ngIf="auth.isloggedIn"  mat-icon-button class="userButton" [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+      <img class="userImage" src="{{auth?.loggedUser?.image || 'http://ssl.gstatic.com/accounts/ui/avatar_2x.png'}}">
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item *ngIf="!auth.isAdmin()" routerLink="/profile">
+        <mat-icon>person</mat-icon>
+        <span>mon compte</span>
+      </button>
+      <!--
+      <button mat-menu-item *ngIf="auth.isStudent()" routerLink="/myPostulations">
+        <mat-icon>insert_drive_file</mat-icon>
+        <span >mes postulations</span>
+      </button>
+      <button mat-menu-item *ngIf="auth.isRH()" routerLink="/dashbordRecruter/postulations">
+        <mat-icon>insert_drive_file</mat-icon>
+        <span >postulations</span>
+      </button>
+      <button mat-menu-item *ngIf="auth.isRH()" routerLink="/dashbordRecruter/offres">
+        <mat-icon>insert_drive_file</mat-icon>
+        <span >offre</span>
+      </button>
+      -->
+      <button mat-menu-item (click)="logout()">
+        <mat-icon>logout</mat-icon>
+        <span>Logout</span>
+      </button>
+    </mat-menu>
+  </div>
+
+</mat-toolbar>
