@@ -4,6 +4,14 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class DashbordService {
-
+  public url: string = "";
   constructor() { }
+
+  postulation() {
+    this.url="postulations"
+  }
+
+  offres(){
+    this.url="offres"
+  }
 }

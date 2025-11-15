@@ -1,0 +1,118 @@
+<app-header></app-header>
+
+<div class="page-content">
+  <div class="container">
+    <div class="main-body">
+
+      <!-- Breadcrumb -->
+      <nav aria-label="breadcrumb" class="main-breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="index.html">Modifier Profile</a></li>
+        </ol>
+      </nav>
+      <!-- /Breadcrumb -->
+
+      <div class="row gutters-sm">
+        <!-- Colonne gauche : Image -->
+        <div class="col-md-4 mb-3">
+          <div class="card">
+            <div class="card-body text-center">
+              <img src="{{imagePreview ? imagePreview : (user?.image || 'http://ssl.gstatic.com/accounts/ui/avatar_2x.png')}}"
+                   alt="Admin" class="rounded-circle" width="150" #prev>
+              <input type="file" #image (change)="onImagePicked(image, prev)">
+              <div class="mt-3">
+                <h4></h4>
+                <p class="text-secondary mb-1">Full Stack Developer</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Colonne droite : Formulaire -->
+        <div class="col-md-8">
+          <form [formGroup]="userForm" class="form-horizontal">
+            <div class="card mb-3">
+              <div class="card-body">
+                <!-- Nom -->
+                <div class="row">
+                  <div class="col-sm-3"><h6 class="mb-0">Nom</h6></div>
+                  <div class="col-sm-9 text-secondary">
+                    <input type="text" class="form-control" placeholder="Nom" formControlName="firstName"
+                           [ngClass]="{
+                        'form-invalid': userForm.controls['firstName'].touched && userForm.controls['firstName'].errors?.['required'],
+                        'form-valid': userForm.controls['firstName'].touched && !userForm.controls['firstName'].errors?.['required']
+                      }">
+                  </div>
+                </div>
+                <hr>
+
+                <!-- Prenom -->
+                <div class="row">
+                  <div class="col-sm-3"><h6 class="mb-0">Prenom</h6></div>
+                  <div class="col-sm-9 text-secondary">
+                    <input type="text" class="form-control" placeholder="Prenom" formControlName="lastName"
+                           [ngClass]="{
+                        'form-invalid': userForm.controls['lastName'].touched && userForm.controls['lastName'].errors?.['required'],
+                        'form-valid': userForm.controls['lastName'].touched && !userForm.controls['lastName'].errors?.['required']
+                      }">
+                  </div>
+                </div>
+                <hr>
+
+                <!-- Email -->
+                <div class="row">
+                  <div class="col-sm-3"><h6 class="mb-0">Email</h6></div>
+                  <div class="col-sm-9 text-secondary">
+                    <input type="email" class="form-control" placeholder="Email" formControlName="username"
+                           [ngClass]="{
+                        'form-invalid': userForm.controls['username'].touched && userForm.controls['username'].errors?.['required'],
+                        'form-valid': userForm.controls['username'].touched && !userForm.controls['username'].errors?.['required']
+                      }">
+                  </div>
+                </div>
+                <hr>
+
+                <!-- Telephone -->
+                <div class="row">
+                  <div class="col-sm-3"><h6 class="mb-0">Telephone</h6></div>
+                  <div class="col-sm-9 text-secondary">
+                    <input type="text" class="form-control" placeholder="Telephone" formControlName="phone"
+                           [ngClass]="{
+                        'form-invalid': userForm.controls['phone'].touched && userForm.controls['phone'].errors?.['required'],
+                        'form-valid': userForm.controls['phone'].touched && !userForm.controls['phone'].errors?.['required']
+                      }">
+                  </div>
+                </div>
+                <hr>
+
+                <!-- Adresse -->
+                <div class="row">
+                  <div class="col-sm-3"><h6 class="mb-0">Adresse</h6></div>
+                  <div class="col-sm-9 text-secondary">
+                    <input type="text" class="form-control" placeholder="Adresse" formControlName="address"
+                           [ngClass]="{
+                        'form-invalid': userForm.controls['address'].touched && userForm.controls['address'].errors?.['required'],
+                        'form-valid': userForm.controls['address'].touched && !userForm.controls['address'].errors?.['required']
+                      }">
+                  </div>
+                </div>
+                <hr>
+
+                <!-- Bouton -->
+                <div class="row">
+                  <div class="col-sm-12">
+                    <a class="btn btn-info" (click)="submit()" routerLink="/editProfile">Modifier</a>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </form>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+<app-footer></app-footer>

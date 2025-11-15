@@ -13,7 +13,7 @@ export class JobService {
   }
 
   listeJobs() {
-    return this.http.get(this.url+"offre/list/");
+    return this.http.get(this.url+"offre/list");
   }
 
   listeMyJobs(){

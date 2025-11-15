@@ -1,0 +1,87 @@
+<section class="home-section">
+  <nav>
+    <div class="sidebar-button">
+      <i class='bx bx-menu sidebarBtn'></i>
+      <span class="dashboard">Dashboard</span>
+    </div>
+    <div class="search-box">
+      <input type="text" placeholder="Search..." #input>
+      <i class='bx bx-search' routerLink="/dashbordRecruter/postulations"></i>
+    </div>
+    <div class="profile-details">
+      <!--<img src="images/profile.jpg" alt="">-->
+      <span class="admin_name">Status: </span>
+      <select class="form-select" #select (change)="filter()">
+        <option value="" selected>Status</option>
+        <option value="pending" >Pending</option>
+        <option value="accepted" >Accepted</option>
+      </select>
+    </div>
+  </nav>
+
+  <div class="home-content">
+    <div class="overview-boxes">
+      <div class="box">
+        <div class="right-side">
+          <div class="box-topic mb-3">Utulisateurs</div>
+          <div class="number">{{users.length}}</div>
+        </div>
+        <i class='bx bxs-user cart'></i>
+      </div>
+      <div class="box">
+        <div class="right-side">
+          <div class="box-topic mb-3">Offres</div>
+          <div class="number">{{offersCount}}</div>
+        </div>
+        <i class='bx bxs-briefcase cart two'></i>
+      </div>
+      <div class="box">
+        <div class="right-side">
+          <div class="box-topic mb-3">Recruteurs</div>
+          <div class="number">{{recruters.length}}</div>
+        </div>
+        <i class='bx bxs-user-voice cart three'></i>
+      </div>
+      <div class="box">
+        <div class="right-side ">
+          <div class="box-topic mb-3">Etudiants</div>
+          <div class="number">{{students.length}}</div>
+        </div>
+        <i class='bx bxs-graduation cart four'></i>
+      </div>
+    </div>
+
+    <div class="sales-boxes">
+      <div class="recent-sales box">
+        <div class="title">Postulations</div>
+        <div class="sales-details">
+          <table class="table  rounded1 shadow-sm  table-hover">
+            <thead>
+            <tr>
+              <th scope="col">Photo</th>
+              <th scope="col">nom</th>
+              <th scope="col">prenom</th>
+              <th scope="col">Offre</th>
+              <th scope="col">CV</th>
+              <th scope="col">Lettre de Motivation</th>
+              <th scope="col">Status</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let postulation of postulations | searchPost :select.value: input.value">
+              <td><img src="{{postulation.user?.image || 'http://ssl.gstatic.com/accounts/ui/avatar_2x.png'}}" width="100" class="user-img "></td>
+              <td>{{postulation.user.firstName}}</td>
+              <td>{{postulation.user.lastName}}</td>
+              <td>{{postulation.offre.description}}</td>
+              <td><button (click)="preview(postulation.cv)">Aperçu CV</button></td>
+              <td>{{postulation.motivation}}</td>
+              <td>{{postulation.status}}</td>
+              <td><i *ngIf="postulation.status!='accepted'" class='bx bx-check check' (click)="accept(postulation.id)"></i></td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

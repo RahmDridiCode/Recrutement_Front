@@ -1,0 +1,85 @@
+<section class="home-section">
+  <nav>
+    <div class="sidebar-button">
+      <i class='bx bx-menu sidebarBtn'></i>
+      <span class="dashboard">Dashboard</span>
+    </div>
+    <div class="search-box">
+      <input type="text" placeholder="Search..." #input>
+      <i class='bx bx-search'routerLink="/dashbordRecruter/offre"></i>
+    </div>
+    <div class="profile-details">
+      <!--<img src="images/profile.jpg" alt="">-->
+      <span class="admin_name">Status: </span>
+      <select class="form-select" #select (change)="filter()">
+        <option value="" selected>Status</option>
+        <option value="pending" >Pending</option>
+        <option value="closed" >Closed</option>
+      </select>
+    </div>
+  </nav>
+
+  <div class="home-content">
+    <div class="overview-boxes">
+      <div class="box">
+        <div class="right-side">
+          <div class="box-topic mb-3">Utulisateurs</div>
+          <div class="number">{{users.length}}</div>
+        </div>
+        <i class='bx bxs-user cart'></i>
+      </div>
+      <div class="box">
+        <div class="right-side">
+          <div class="box-topic mb-3">Offres</div>
+          <div class="number">{{offres.length}}</div>
+        </div>
+        <i class='bx bxs-briefcase cart two'></i>
+      </div>
+      <div class="box">
+        <div class="right-side">
+          <div class="box-topic mb-3">Recruteurs</div>
+          <div class="number">{{recruters.length}}</div>
+        </div>
+        <i class='bx bxs-user-voice cart three'></i>
+      </div>
+      <div class="box">
+        <div class="right-side ">
+          <div class="box-topic mb-3">Etudiants</div>
+          <div class="number">{{students.length}}</div>
+        </div>
+        <i class='bx bxs-graduation cart four'></i>
+      </div>
+    </div>
+
+    <div class="sales-boxes">
+      <div class="recent-sales box">
+        <div class="title">Offre</div>
+        <div class="sales-details">
+          <table class="table  rounded1 shadow-sm  table-hover">
+            <thead>
+            <tr>
+              <th scope="col">Ville</th>
+              <th scope="col">Address</th>
+              <th scope="col">Date</th>
+              <th scope="col">Description</th>
+              <th scope="col">Specialité</th>
+              <th scope="col">Status</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let offre of offres | searchOffreBy:select.value:input.value">
+              <td>{{offre?.ville}}</td>
+              <td>{{offre?.address}}</td>
+              <td>{{offre?.date}}</td>
+              <td>{{offre?.description}}</td>
+              <td>{{offre?.service}}</td>
+              <td>{{offre?.status}}</td>
+              <td><i *ngIf="offre?.status=='pending'" (click)="closeOffre(offre.id)" class='bx bxs-x-circle' style='color:#fd3939;font-size: 32px; cursor: pointer;'></i></td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

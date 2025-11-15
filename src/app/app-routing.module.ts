@@ -4,11 +4,26 @@ import {SignupComponent} from "./components/signup/signup.component";
 import {LoginComponent} from "./components/login/login.component";
 import {HomeComponent} from "./components/home/home.component";
 import {AuthGuard} from "./auth.guard";
+import {ResetPasswordComponent} from "./components/reset-password/reset-password.component";
+import {ForgotPasswordComponent} from "./components/forgot-password/forgot-password.component";
+import {ProfileComponent} from "./components/profile/profile.component";
+import {EditProfileComponent} from "./components/edit-profile/edit-profile.component";
+import {AddOffreComponent} from "./components/add-offre/add-offre.component";
+import {CvComponent} from "./components/cv/cv.component";
 
 const routes: Routes = [
-  { path: "", component: HomeComponent , canActivate: [AuthGuard] },
+  { path: "", component: HomeComponent },
   { path: "login", component: LoginComponent },
-  { path: "signup", component: SignupComponent }
+  { path: "signup", component: SignupComponent },
+  { path: 'forgot-password', component: ForgotPasswordComponent },
+  { path: 'reset-password', component: ResetPasswordComponent },
+
+  { path: "profile", component: ProfileComponent, canActivate: [AuthGuard]  },
+  { path: "editProfile", component: EditProfileComponent, canActivate: [AuthGuard]  },
+  { path: "addOffre", component: AddOffreComponent, canActivate: [AuthGuard]  },
+  { path: "cv", component: CvComponent, canActivate: [AuthGuard]},
+  // Redirection wildcard vers login si URL inconnue
+  { path: '**', redirectTo: 'login', pathMatch: 'full' }
 ];
 
 @NgModule({

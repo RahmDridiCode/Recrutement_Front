@@ -11,7 +11,6 @@ import { PopupComponent } from '../popup/popup.component';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-
   jobs : any[]=[];
   ville:any=null
   service:any=null
@@ -51,4 +50,5 @@ export class HomeComponent implements OnInit {
       });
     })
   }
+
 }

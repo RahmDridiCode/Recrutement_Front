@@ -6,9 +6,9 @@ import { AppComponent } from './app.component';
 import { SignupComponent } from './components/signup/signup.component';
 import { LoginComponent } from './components/login/login.component';
 import { HomeComponent } from './components/home/home.component';
-import {ReactiveFormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {RouterModule} from "@angular/router";
-import { HttpClientModule } from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PopupComponent } from './components/popup/popup.component';
 import { HeaderComponent } from './components/header/header.component';
@@ -18,6 +18,21 @@ import {MatIconModule} from "@angular/material/icon";
 import { FilterPipe } from './pipes/filter.pipe';
 import {MatMenuModule} from "@angular/material/menu";
 import {MatDialogModule} from "@angular/material/dialog";
+import {JwtInterceptor} from "./auth/jwt.interceptor";
+import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
+import { EditProfileComponent } from './components/edit-profile/edit-profile.component';
+import { ProfileComponent } from './components/profile/profile.component';
+import { AddOffreComponent } from './components/add-offre/add-offre.component';
+import {MatCardModule} from "@angular/material/card";
+import { SearchOffreByPipe } from './pipes/search-offre-by.pipe';
+import { OffresComponent } from './components/offres/offres.component';
+import { PostulationsComponent } from './components/postulations/postulations.component';
+import { CvComponent } from './components/cv/cv.component';
+import {NgxExtendedPdfViewerModule} from "ngx-extended-pdf-viewer";
+import { SearchPostPipe } from './pipes/search-post.pipe';
+import {AuthGuard} from "./auth.guard";
+
 
 @NgModule({
   declarations: [
@@ -28,7 +43,17 @@ import {MatDialogModule} from "@angular/material/dialog";
     PopupComponent,
     HeaderComponent,
     FooterComponent,
-    FilterPipe
+    FilterPipe,
+    ForgotPasswordComponent,
+    ResetPasswordComponent,
+    EditProfileComponent,
+    ProfileComponent,
+    AddOffreComponent,
+    SearchOffreByPipe,
+    OffresComponent,
+    PostulationsComponent,
+    CvComponent,
+    SearchPostPipe
   ],
   imports: [
     BrowserModule,
@@ -40,9 +65,15 @@ import {MatDialogModule} from "@angular/material/dialog";
     MatToolbarModule,
     MatMenuModule,
     MatDialogModule,
-    MatIconModule
+    MatIconModule,
+    FormsModule,
+    MatCardModule,
+    NgxExtendedPdfViewerModule,
   ],
-  providers: [],
+  providers: [
+     AuthGuard,
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

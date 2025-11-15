@@ -10,7 +10,7 @@ import {HttpClient} from "@angular/common/http";
 export class AuthService {
 
   public loggedUser: any;
-  public isloggedIn: Boolean = false;
+  public isloggedIn: boolean  = false;
   public role: string = "";
   public token: string = "";
   url = environment.apiUrl
@@ -24,10 +24,10 @@ export class AuthService {
     this.isloggedIn = false;
     this.loggedUser = undefined;
     this.role = "";
-    localStorage.removeItem('loggedUser');
+    //localStorage.removeItem('loggedUser');
     localStorage.removeItem('token');
     localStorage.removeItem('user');
-    localStorage.setItem('isloggedIn', String(this.isloggedIn));
+    localStorage.setItem('isloggedIn', 'false');
     this.router.navigate(['/login']);
   }
 
@@ -43,6 +43,7 @@ export class AuthService {
       this.token = result.token;
       console.log(this.role);
       this.isloggedIn = true;
+      localStorage.setItem('isloggedIn', 'true');
     }
   }
   register(form: any) {
@@ -68,6 +69,7 @@ export class AuthService {
     console.log(user.get("image"))
     return this.http.post(this.url + "user/" + this.loggedUser.id, user);
   }
+
 
   isAdmin(): Boolean {
     if (this.loggedUser) {
@@ -117,5 +119,10 @@ export class AuthService {
     const user = localStorage.getItem("user")
     if (!token) return null;
     return { token: token, user: user }
+  }
+
+  checkLoggedIn(): boolean {
+    // utiliser variable ou fallback localStorage
+    return this.isloggedIn || localStorage.getItem('isloggedIn') === 'true';
   }
 }
