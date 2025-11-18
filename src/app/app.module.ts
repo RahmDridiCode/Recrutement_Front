@@ -32,6 +32,8 @@ import { CvComponent } from './components/cv/cv.component';
 import {NgxExtendedPdfViewerModule} from "ngx-extended-pdf-viewer";
 import { SearchPostPipe } from './pipes/search-post.pipe';
 import {AuthGuard} from "./auth.guard";
+import {ToastrModule} from "ngx-toastr";
+import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 
 @NgModule({
@@ -53,7 +55,8 @@ import {AuthGuard} from "./auth.guard";
     OffresComponent,
     PostulationsComponent,
     CvComponent,
-    SearchPostPipe
+    SearchPostPipe,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,
@@ -69,6 +72,12 @@ import {AuthGuard} from "./auth.guard";
     FormsModule,
     MatCardModule,
     NgxExtendedPdfViewerModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot({
+      positionClass: 'toast-top-right',
+      timeOut: 3000,
+      preventDuplicates: true
+    })
   ],
   providers: [
      AuthGuard,

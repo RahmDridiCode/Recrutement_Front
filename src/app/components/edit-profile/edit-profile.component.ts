@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {AuthService} from "../../services/auth.service";
 import {Router} from "@angular/router";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-edit-profile',
@@ -13,7 +14,7 @@ export class EditProfileComponent implements OnInit {
   user:any;
   imagePreview:any=null
   userForm:any;
-  constructor(private authService: AuthService, private router:Router) { }
+  constructor(private authService: AuthService, private router:Router,private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.user = this.authService.loggedUser;
@@ -38,16 +39,24 @@ export class EditProfileComponent implements OnInit {
     reader.readAsDataURL(file);
   }
 
-  submit(){
-    if(this.userForm.valid){
-      console.log(this.userForm.value);
-      this.authService.updateUser({id:this.user.id,...this.userForm.value}).subscribe((result) => {
-        console.log(result);
-        this.authService.loggedUser = result;
-        this.router.navigate(["/profile"])
-      });
+  submit() {
+    if (this.userForm.valid) {
+      this.authService.updateUser({ id: this.user.id, ...this.userForm.value })
+        .subscribe({
+          next: (result) => {
+            this.toastr.success('Profil mis à jour avec succès !', 'Succès');
+            this.authService.loggedUser = result;
+            this.router.navigate(["/profile"]);
+          },
+          error: (err) => {
+            this.toastr.error('Une erreur est survenue. Veuillez réessayer.', 'Échec');
+            console.error(err);
+          }
+        });
+    } else {
+      this.toastr.warning('Veuillez vérifier les champs du formulaire.', 'Attention');
     }
-
   }
+
 
 }

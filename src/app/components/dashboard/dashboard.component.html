@@ -1,0 +1,51 @@
+<div class="sidebar">
+  <div class="logo-details">
+    <i class='bx bxs-graduation'></i>
+    <span class="logo_name">Stagy</span>
+  </div>
+  <ul class="nav-links">
+    <li>
+      <a (click)="go(0,'/dashbord/')" [ngClass]="{'active':listNav[0]}" >
+        <i class='bx bx-grid-alt'></i>
+        <span class="links_name">Dashboard</span>
+      </a>
+    </li>
+    <li>
+      <a (click)="go(1,'/dashbord/students')" [ngClass]="{'active':listNav[1]}">
+        <i class='bx bxs-graduation'></i>
+        <span class="links_name">Etudiants</span>
+      </a>
+    </li>
+    <li>
+      <a (click)="go(2,'/dashbord/recruters')" [ngClass]="{'active':listNav[2]}">
+        <i class='bx bxs-user'></i>
+        <span class="links_name">Recruteurs</span>
+
+      </a>
+    </li>
+    <li>
+      <a (click)="go(3,'/dashbord/contact')" [ngClass]="{'active':listNav[3]}">
+        <i class='bx bxs-message-rounded-detail'></i>
+        <span class="links_name">Reclamations</span>
+
+      </a>
+    </li>
+    <li>
+      <a routerLink="/">
+        <i class='bx bxs-home' ></i>
+        <span class="links_name">Acceuil</span>
+
+      </a>
+    </li>
+    <li>
+      <a (click)="logout()">
+        <i class='bx bx-log-out'></i>
+        <span class="links_name">Deconnexion</span>
+      </a>
+    </li>
+  </ul>
+</div>
+
+<router-outlet></router-outlet>
+
+
