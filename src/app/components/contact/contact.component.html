@@ -1,0 +1,128 @@
+<app-header></app-header>
+
+<main class="flex-1 py-16 px-4 lg:px-6 bg-background text-foreground min-h-screen">
+  <div class="container mx-auto max-w-6xl">
+    <div class="text-center mb-12 animate-fade-up">
+      <h1 class="text-4xl md:text-5xl font-display font-bold mb-4">Contactez-nous</h1>
+      <p class="text-lg text-muted-foreground max-w-2xl mx-auto">
+        Une question, une suggestion ou besoin d'aide? Notre équipe est là pour vous répondre.
+      </p>
+    </div>
+
+    <div class="grid lg:grid-cols-2 gap-12">
+      <section class="glass p-8 rounded-2xl animate-fade-up stagger-2" aria-labelledby="contact-form-title">
+        <h2 id="contact-form-title" class="text-2xl font-display font-bold mb-6">Envoyez-nous un message</h2>
+
+        <form [formGroup]="contactForm" (ngSubmit)="submitContact()" class="space-y-6" novalidate>
+          <div class="space-y-2">
+            <label for="name" class="text-sm font-medium">Nom complet <span class="text-destructive">*</span></label>
+            <input id="name" type="text" formControlName="name" placeholder="Votre nom"
+                   class="flex h-12 w-full rounded-md border border-input bg-background px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-ring"
+                   [attr.aria-invalid]="contactForm.controls['name'].invalid && contactForm.controls['name'].touched" />
+          </div>
+
+          <div class="space-y-2">
+            <label for="email" class="text-sm font-medium">Email <span class="text-destructive">*</span></label>
+            <input id="email" type="email" formControlName="email" placeholder="votre@email.com"
+                   class="flex h-12 w-full rounded-md border border-input bg-background px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-ring"
+                   [attr.aria-invalid]="contactForm.controls['email'].invalid && contactForm.controls['email'].touched" />
+          </div>
+
+          <div class="space-y-2">
+            <label for="subject" class="text-sm font-medium">Sujet <span class="text-destructive">*</span></label>
+            <input id="subject" type="text" formControlName="subject" placeholder="Sujet de votre message"
+                   class="flex h-12 w-full rounded-md border border-input bg-background px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-ring"
+                   [attr.aria-invalid]="contactForm.controls['subject'].invalid && contactForm.controls['subject'].touched" />
+          </div>
+
+          <div class="space-y-2">
+            <label for="message" class="text-sm font-medium">Message <span class="text-destructive">*</span></label>
+            <textarea id="message" formControlName="message" rows="6" placeholder="Décrivez votre demande..."
+                      class="w-full rounded-md border border-input bg-background px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-ring resize-none"
+                      [attr.aria-invalid]="contactForm.controls['message'].invalid && contactForm.controls['message'].touched"></textarea>
+          </div>
+
+          <button type="submit" [disabled]="isSubmitting"
+                  class="w-full inline-flex items-center justify-center rounded-md bg-primary px-4 py-3 text-base font-semibold text-primary-foreground shadow hover:bg-primary/90 disabled:opacity-70">
+            <svg class="mr-2 h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 2L11 13"></path>
+              <path d="M22 2L15 22L11 13L2 9L22 2Z"></path>
+            </svg>
+            {{ isSubmitting ? 'Envoi en cours...' : 'Envoyer le message' }}
+          </button>
+
+          <p *ngIf="successMessage" class="text-sm text-green-600 text-center">
+            {{ successMessage }}
+          </p>
+        </form>
+      </section>
+
+      <section class="space-y-6 animate-fade-up stagger-3" aria-labelledby="contact-info-title">
+        <div class="glass p-8 rounded-2xl space-y-6">
+          <h2 id="contact-info-title" class="text-2xl font-display font-bold">Informations de contact</h2>
+          <div class="space-y-4 text-sm text-muted-foreground">
+            <div class="flex items-start gap-4">
+              <div class="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
+                <svg class="h-6 w-6 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M4 4h16v16H4z"></path>
+                  <polyline points="22,6 12,13 2,6"></polyline>
+                </svg>
+              </div>
+              <div>
+                <h3 class="font-semibold mb-1 text-foreground">Email</h3>
+                <a href="mailto:contact@jobs.tn" class="hover:text-primary transition-colors">contact@jobs.tn</a>
+                <p class="text-xs text-muted-foreground mt-1">Nous répondons sous 24h</p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4">
+              <div class="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
+                <svg class="h-6 w-6 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M22 16.92V21a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.13 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2 4.18 2 2 0 0 1 4.11 2h4.18a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L9 9c.5 1 1.7 2.26 2.76 3.32S14 14.5 15 15l.35-.35a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                </svg>
+              </div>
+              <div>
+                <h3 class="font-semibold mb-1 text-foreground">Téléphone</h3>
+                <a href="tel:+21612345678" class="hover:text-primary transition-colors">+216 12 345 678</a>
+                <p class="text-xs text-muted-foreground mt-1">Lun-Ven: 9h-18h</p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4">
+              <div class="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
+                <svg class="h-6 w-6 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 1 1 18 0Z"></path>
+                  <circle cx="12" cy="10" r="3"></circle>
+                </svg>
+              </div>
+              <div>
+                <h3 class="font-semibold mb-1 text-foreground">Adresse</h3>
+                <p>Avenue Habib Bourguiba<br>Tunis 1000, Tunisie</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="glass p-8 rounded-2xl text-sm text-muted-foreground">
+          <h3 class="text-xl font-display font-bold mb-4 text-foreground">Heures d'ouverture</h3>
+          <div class="space-y-2">
+            <div class="flex justify-between">
+              <span>Lundi - Vendredi</span>
+              <span class="font-medium text-foreground">9h00 - 18h00</span>
+            </div>
+            <div class="flex justify-between">
+              <span>Samedi</span>
+              <span class="font-medium text-foreground">9h00 - 13h00</span>
+            </div>
+            <div class="flex justify-between">
+              <span>Dimanche</span>
+              <span class="font-medium text-foreground">Fermé</span>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+</main>
+
+<app-footer></app-footer>

@@ -32,6 +32,8 @@ import { CvComponent } from './components/cv/cv.component';
 import {NgxExtendedPdfViewerModule} from "ngx-extended-pdf-viewer";
 import { SearchPostPipe } from './pipes/search-post.pipe';
 import {AuthGuard} from "./auth.guard";
+import { ContactComponent } from './components/contact/contact.component';
+import { NotFoundComponent } from './components/not-found/not-found.component';
 
 
 @NgModule({
@@ -53,7 +55,9 @@ import {AuthGuard} from "./auth.guard";
     OffresComponent,
     PostulationsComponent,
     CvComponent,
-    SearchPostPipe
+    SearchPostPipe,
+    ContactComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,

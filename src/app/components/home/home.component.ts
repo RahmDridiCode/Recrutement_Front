@@ -11,27 +11,35 @@ import { PopupComponent } from '../popup/popup.component';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  jobs : any[]=[];
-  ville:any=null
-  service:any=null
+  jobs: any[] = [];
+  filteredJobs: any[] = [];
+  ville: string | null = null;
+  service: string | null = null;
+  readonly cities = ['Tunis', 'Sousse', 'Sfax', 'Nabeul', 'Monastir', 'Bizerte'];
+  readonly domains = ['Informatique', 'Marketing', 'Design', 'Finance', 'RH', 'Communication'];
 
-
-  constructor(private jobService : JobService, public auth: AuthService,
+  constructor(private jobService: JobService, public auth: AuthService,
               public postulService: PostulationService, public dialog: MatDialog) {
   }
 
   ngOnInit(): void {
-    this.jobService.listeJobs().subscribe((jobs:any)=>{
-      this.jobs = jobs;
-      console.log(this.jobs);
-    })
+    this.jobService.listeJobs().subscribe((jobs: any) => {
+      this.jobs = jobs || [];
+      this.filteredJobs = [...this.jobs];
+    });
   }
-  setVille(ville:string){
-    this.ville = ville;
+
+  applyFilters(city: string, domain: string): void {
+    this.ville = city && city !== 'all' ? city : null;
+    this.service = domain && domain !== 'all' ? domain : null;
+
+    this.filteredJobs = this.jobs.filter(job => {
+      const matchCity = this.ville ? job.ville === this.ville : true;
+      const matchService = this.service ? job.service === this.service : true;
+      return matchCity && matchService;
+    });
   }
-  setService(service:string){
-    this.service=service
-  }
+
   postuler(offreId:number){
     this.postulService.verifyPostulation(offreId).subscribe((result:any)=>{
       console.log(result);

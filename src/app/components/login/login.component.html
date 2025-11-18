@@ -1,49 +1,73 @@
-<div class="limiter">
-  <div class="container-login100">
-    <div class="wrap-login100">
-      <div class="login100-pic js-tilt" data-tilt>
-        <img src="assets/images/img-01.png" alt="IMG">
-      </div>
-      <form class="login100-form validate-form" [formGroup]="connexion">
-                <span class="login100-form-title">
-                    Login
-                </span>
-        <div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
-          <input class="input100" type="text" name="email" placeholder="Email" formControlName="email" [ngClass]="{'form-invalid':connexion.controls['email'].touched && connexion.controls['email'].errors?.['required'] || invalid,'form-valid':connexion.controls['email'].touched && !connexion.controls['email'].errors?.['required']}">
-          <span class="focus-input100"></span>
-          <span class="symbol-input100">
-                        <i class="fa fa-envelope" aria-hidden="true"></i>
-                    </span>
-        </div>
-        <div class="wrap-input100 validate-input" data-validate = "Password is required">
-          <input class="input100" type="password" name="pass" placeholder="Password" formControlName="mdp" [ngClass]="{'form-invalid':connexion.controls['mdp'].touched && connexion.controls['mdp'].errors?.['required'] || invalid,'form-valid':connexion.controls['mdp'].touched && !connexion.controls['mdp'].errors?.['required']}">
-          <span class="focus-input100"></span>
-          <span class="symbol-input100">
-                        <i class="fa fa-lock" aria-hidden="true"></i>
-                    </span>
+<app-header></app-header>
+
+<main class="bg-muted/30 text-foreground min-h-screen px-4 py-16 flex items-center">
+  <div class="container mx-auto max-w-5xl">
+    <div class="glass rounded-3xl shadow-2xl overflow-hidden">
+      <div class="grid gap-10 md:grid-cols-2 p-8 md:p-12 items-center">
+        <div class="space-y-6">
+          <span class="inline-flex items-center gap-2 rounded-full bg-primary/10 text-primary px-4 py-1 text-sm font-semibold">
+            <span class="w-2 h-2 rounded-full bg-primary"></span>
+            Bienvenue de retour
+          </span>
+          <h1 class="text-4xl font-display font-bold">Connectez-vous à votre espace</h1>
+          <p class="text-lg text-muted-foreground">
+            Gardez une trace de vos candidatures, suivez vos offres enregistrées et accédez rapidement aux recommandations personnalisées.
+          </p>
+          <div class="space-y-4">
+            <div class="flex items-start gap-3">
+              <div class="w-10 h-10 rounded-2xl bg-primary/10 text-primary font-semibold flex items-center justify-center">1</div>
+              <div>
+                <p class="font-semibold">Sauvegardez vos offres favorites</p>
+                <p class="text-sm text-muted-foreground">Revenez dessus quand vous le souhaitez et postulez en un clic.</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <div class="w-10 h-10 rounded-2xl bg-primary/10 text-primary font-semibold flex items-center justify-center">2</div>
+              <div>
+                <p class="font-semibold">Recevez des alertes personnalisées</p>
+                <p class="text-sm text-muted-foreground">Nous vous avertissons dès qu'une nouvelle opportunité correspond à votre profil.</p>
+              </div>
+            </div>
+          </div>
+          <div class="flex items-center gap-3 text-sm">
+            <span class="text-muted-foreground">Pas encore de compte ?</span>
+            <a routerLink="/signup" class="inline-flex items-center font-semibold text-primary hover:text-primary/80">
+              Créer un compte
+              <svg class="ml-1 h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                <path d="M5 12h14"></path>
+                <path d="M12 5l7 7-7 7"></path>
+              </svg>
+            </a>
+          </div>
         </div>
 
-        <div class="container-login100-form-btn">
-          <button class="login100-form-btn" (click)="onLoggedin()">
-            Login
+        <form [formGroup]="connexion" (ngSubmit)="onLoggedin()" class="bg-background/90 border border-border shadow-xl rounded-2xl p-8 space-y-6">
+          <div class="space-y-2">
+            <label class="text-sm font-medium" for="email">Adresse email</label>
+            <input id="email" type="email" formControlName="email" placeholder="vous@email.com"
+                   class="w-full rounded-xl border border-input bg-background px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-ring"
+                   [ngClass]="{'form-invalid': connexion.controls['email'].invalid && (connexion.controls['email'].touched || invalid)}" />
+          </div>
+
+          <div class="space-y-2">
+            <div class="flex items-center justify-between text-sm font-medium">
+              <label for="password">Mot de passe</label>
+              <a routerLink="/forgot-password" class="text-primary hover:text-primary/80">Mot de passe oublié ?</a>
+            </div>
+            <input id="password" type="password" formControlName="mdp" placeholder="••••••••"
+                   class="w-full rounded-xl border border-input bg-background px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-ring"
+                   [ngClass]="{'form-invalid': connexion.controls['mdp'].invalid && (connexion.controls['mdp'].touched || invalid)}" />
+          </div>
+
+          <button type="submit" class="w-full inline-flex items-center justify-center rounded-xl bg-primary px-4 py-3 text-sm font-semibold text-primary-foreground transition hover:bg-primary/90">
+            Se connecter
           </button>
-        </div>
-        <!-- Lien Forgot Password -->
-        <div class="text-center p-t-12">
-          <a class="txt2" routerLink="/forgot-password">
-            Forgot Password?
-          </a>
-        </div>
-        <div class="text-center p-t-136">
-          <a class="txt2" routerLink="/signup">
-            Create your Account
-            <i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
-          </a>
-        </div>
-        <p *ngIf="erreur" class="error">Email ou Mot de passe erroné</p>
-      </form>
 
+          <p *ngIf="erreur" class="error">Email ou mot de passe erroné</p>
+        </form>
+      </div>
     </div>
-
   </div>
-</div>
+</main>
+
+<app-footer></app-footer>

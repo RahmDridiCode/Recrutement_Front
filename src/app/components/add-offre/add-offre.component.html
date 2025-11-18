@@ -1,119 +1,112 @@
 
-<!---->
 <app-header></app-header>
 
-<mat-card>
-  <div class="form-bg">
-    <div class="container mt-2">
-      <h1 class="title" style="color: #0A2558">Ajouter Un Offre de Stage</h1>
-      <br>
-      <i class="fa fa-lightbulb-o" aria-hidden="true"></i>
-      <div class="row">
+<main class="flex-1 py-16 px-4 lg:px-6 bg-background text-foreground min-h-screen">
+  <div class="container mx-auto max-w-4xl">
+    <div class="text-center mb-12 animate-fade-up">
+      <div class="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center mx-auto mb-4">
+        <svg class="h-8 w-8 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 7V5a2 2 0 0 1 2-2h4l2 3h10a2 2 0 0 1 2 2v2"></path>
+          <path d="M3 7h18v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+        </svg>
+      </div>
+      <h1 class="text-4xl md:text-5xl font-display font-bold mb-4">Publier une Offre</h1>
+      <p class="text-lg text-muted-foreground max-w-2xl mx-auto">
+        Trouvez le candidat idéal en publiant votre offre de stage sur notre plateforme.
+      </p>
+    </div>
 
-        <div class="col-md-offset-3 col-md-3"></div>
-        <div class="col-md-offset-3 col-md-6">
-          <div class="form-container">
+    <section *ngIf="authService.isloggedIn; else loginPrompt">
+      <div *ngIf="isRecruiter; else notRecruiter" class="glass p-8 rounded-2xl animate-fade-up">
+        <form [formGroup]="jobOffer" (ngSubmit)="addJob()" class="space-y-6">
+          <div class="grid md:grid-cols-2 gap-6">
+            <div class="space-y-2">
+              <label class="text-sm font-medium">Domaine <span class="text-destructive">*</span></label>
+              <select formControlName="service" class="flex h-12 w-full rounded-md border border-input bg-background px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-ring"
+                      [ngClass]="{'border-destructive': jobOffer.controls['service'].invalid && (jobOffer.controls['service'].touched || invalid)}">
+                <option value="">Sélectionner un domaine</option>
+                <option *ngFor="let domain of domains" [value]="domain">{{ domain }}</option>
+              </select>
+            </div>
 
-            <!--p-->
-            <form class="form-horizontal" [formGroup]="jobOffer">
-              <div class="form-group">
-                <label for="selection">Domaine</label>
-                <select id="selection" class="form-control" formControlName="service" name="services"   [ngClass]="{'form-invalid':jobOffer.controls['service'].touched && jobOffer.controls['service'].errors?.['required'] || invalid,'form-valid':jobOffer.controls['service'].touched && !jobOffer.controls['service'].errors?.['required']}">
-                  <option value="">Domaine</option>
+            <div class="space-y-2">
+              <label class="text-sm font-medium">Ville <span class="text-destructive">*</span></label>
+              <select formControlName="ville" class="flex h-12 w-full rounded-md border border-input bg-background px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-ring"
+                      [ngClass]="{'border-destructive': jobOffer.controls['ville'].invalid && (jobOffer.controls['ville'].touched || invalid)}">
+                <option value="">Sélectionner une ville</option>
+                <option *ngFor="let city of cities" [value]="city">{{ city }}</option>
+              </select>
+            </div>
+          </div>
 
-                  <option value="Informatique">Informatique</option>
-                  <option value="Mécanique">Mécanique</option>
-                  <option value="Electrique">Electrique</option>
-                  <option value="Génie Civil">Génie Civil</option>
-                  <option value="Science">Science</option>
-                  <option value="Langues">Langues</option>
-                  <option value="Gestion">Gestion</option>
-                  <option value="Marketing">Marketing</option>
-                  <option value="Finance">Finance</option>
-                  <option value="Economie">Economie</option>
-                  <option value="Art">Art</option>
-                  <option value="Droit">Droit</option>
-                  <option value="Droit">Autre</option>
+          <div class="space-y-2">
+            <label class="text-sm font-medium">Adresse <span class="text-destructive">*</span></label>
+            <input type="text" formControlName="address" placeholder="Adresse complète"
+                   class="flex h-12 w-full rounded-md border border-input bg-background px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-ring"
+                   [ngClass]="{'border-destructive': jobOffer.controls['address'].invalid && (jobOffer.controls['address'].touched || invalid)}" />
+          </div>
 
-                </select>
+          <div class="grid md:grid-cols-2 gap-6">
+            <div class="space-y-2">
+              <label class="text-sm font-medium">Date <span class="text-destructive">*</span></label>
+              <input type="date" formControlName="date" class="flex h-12 w-full rounded-md border border-input bg-background px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-ring"
+                     [ngClass]="{'border-destructive': jobOffer.controls['date'].invalid && (jobOffer.controls['date'].touched || invalid)}" />
+            </div>
+          </div>
 
-              </div>
-              <br><br>
+          <div class="space-y-2">
+            <label class="text-sm font-medium">Description <span class="text-destructive">*</span></label>
+            <textarea formControlName="description" rows="6" placeholder="Décrivez le poste, les missions, les compétences requises..."
+                      class="w-full rounded-md border border-input bg-background px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-ring resize-none"
+                      [ngClass]="{'border-destructive': jobOffer.controls['description'].invalid && (jobOffer.controls['description'].touched || invalid)}"></textarea>
+          </div>
 
-              <!--p-->
+          <div class="flex gap-3 pt-4">
+            <button type="button" class="inline-flex items-center justify-center rounded-md border border-input px-4 py-3 text-sm font-semibold hover:bg-muted flex-1"
+                    (click)="navigateHome()">
+              Annuler
+            </button>
+            <button type="submit" class="inline-flex items-center justify-center rounded-md bg-primary px-4 py-3 text-sm font-semibold text-primary-foreground shadow hover:bg-primary/90 flex-1"
+                    [disabled]="isSubmitting">
+              {{ isSubmitting ? 'Publication...' : 'Publier l\'offre' }}
+            </button>
+          </div>
+        </form>
+      </div>
+    </section>
 
+    <ng-template #loginPrompt>
+      <div class="glass p-8 rounded-2xl text-center animate-fade-up">
+        <svg class="h-16 w-16 text-muted-foreground mx-auto mb-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"></circle>
+          <line x1="12" y1="16" x2="12" y2="12"></line>
+          <line x1="12" y1="8" x2="12.01" y2="8"></line>
+        </svg>
+        <h2 class="text-2xl font-display font-bold mb-2">Connexion requise</h2>
+        <p class="text-muted-foreground mb-6">Vous devez être connecté en tant que recruteur pour publier une offre.</p>
+        <div class="flex gap-3 justify-center">
+          <button class="inline-flex items-center rounded-md border border-input px-4 py-2 text-sm font-semibold hover:bg-muted" routerLink="/login">Se connecter</button>
+          <button class="inline-flex items-center rounded-md bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground shadow hover:bg-primary/90" routerLink="/signup">S'inscrire</button>
+        </div>
+      </div>
+    </ng-template>
 
-
-              <div class="form-group">
-
-                <label>Ville</label>
-                <select class="form-control" id="inputGroupSelect04" aria-label="Example select with button addon" formControlName="ville" [ngClass]="{'form-invalid':jobOffer.controls['ville'].touched && jobOffer.controls['ville'].errors?.['required'] || invalid,'form-valid':jobOffer.controls['ville'].touched && !jobOffer.controls['ville'].errors?.['required']}">
-                  <option selected value="">Toute la Tunisie</option>
-                  <option value="Ariana">Ariana</option>
-                  <option value="Béja">Béja</option>
-                  <option value="Ben Arous">Ben Arous</option>
-                  <option value="Bizerte">Bizerte</option>
-                  <option value="Gabès">Gabès</option>
-                  <option value="Gafsa">Gafsa</option>
-                  <option value="Jendouba">Jendouba</option>
-                  <option value="Kairouan">Kairouan</option>
-                  <option value="Kasserine">Kasserine</option>
-                  <option value="Kébili">Kébili</option>
-                  <option value="Le Kef">Le Kef</option>
-                  <option value="Mahdia">Mahdia</option>
-                  <option value="La Manouba">La Manouba</option>
-                  <option value="Médenine">Médenine</option>
-                  <option value="Monastir">Monastir</option>
-                  <option value="Nabeul">Nabeul</option>
-                  <option value="Sfax">Sfax</option>
-                  <option value="Sidi Bouzid">Sidi Bouzid</option>
-                  <option value="Siliana">Siliana</option>
-                  <option value="Sousse">Sousse</option>
-                  <option value="Tataouine">Tataouine</option>
-                  <option value="Touzeur">Touzeur </option>
-                  <option value="Tunis">Tunis</option>
-                  <option value="Zaghouan">Zaghouan</option>
-                </select>
-
-              </div><br>
-
-              <div class="form-group">
-
-                <label>Adresse </label>
-                <input type="text" class="form-control" placeholder="Adresse" formControlName="address" [ngClass]="{'form-invalid':jobOffer.controls['address'].touched && jobOffer.controls['address'].errors?.['required'] || invalid,'form-valid':jobOffer.controls['address'].touched && !jobOffer.controls['address'].errors?.['required']}">
-
-
-              </div><br>
-
-              <div class="form-group">
-                <label>Date</label>
-                <input type="date" class="form-control" placeholder="Date"  name="date" formControlName="date"  [ngClass]="{'form-invalid':jobOffer.controls['date'].touched && jobOffer.controls['date'].errors?.['required'] || invalid,'form-valid':jobOffer.controls['date'].touched && !jobOffer.controls['date'].errors?.['required']}">
-
-              </div><br>
-
-
-              <div class="form-group">
-                <label>Description</label>
-
-                <textarea class="form-control" id="description" formControlName="description" name="description" class="form-control ng-untouched ng-pristine ng-valid" [ngClass]="{'form-invalid':jobOffer.controls['description'].touched && jobOffer.controls['description'].errors?.['required'] || invalid,'form-valid':jobOffer.controls['description'].touched && !jobOffer.controls['description'].errors?.['required']}"></textarea>
-
-
-
-
-
-
-              </div>
-              <button class="btn btn-success mt-4 " style="background-color: #0A2558!important" (click)="addJob()" >
-
-                Poster ma demande</button>
-            </form> <br>
-
-
-          </div></div></div></div></div>
-  <div class="main"> <br>
-    <h3>{{ message }}</h3>
+    <ng-template #notRecruiter>
+      <div class="glass p-8 rounded-2xl text-center animate-fade-up">
+        <svg class="h-16 w-16 text-destructive mx-auto mb-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"></circle>
+          <line x1="12" y1="8" x2="12" y2="12"></line>
+          <line x1="12" y1="16" x2="12.01" y2="16"></line>
+        </svg>
+        <h2 class="text-2xl font-display font-bold mb-2">Accès réservé aux recruteurs</h2>
+        <p class="text-muted-foreground mb-6">Cette page est réservée aux recruteurs. Si vous êtes un recruteur, veuillez contacter notre équipe pour activer votre compte.</p>
+        <button class="inline-flex items-center rounded-md bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground shadow hover:bg-primary/90" routerLink="/contact">
+          Contacter l'équipe
+        </button>
+        <p class="text-xs text-muted-foreground mt-4">Note: Pour tester cette fonctionnalité, utilisez un compte recruteur.</p>
+      </div>
+    </ng-template>
   </div>
-
-</mat-card>
+</main>
 
 <app-footer></app-footer>

@@ -10,6 +10,8 @@ import {ProfileComponent} from "./components/profile/profile.component";
 import {EditProfileComponent} from "./components/edit-profile/edit-profile.component";
 import {AddOffreComponent} from "./components/add-offre/add-offre.component";
 import {CvComponent} from "./components/cv/cv.component";
+import {ContactComponent} from "./components/contact/contact.component";
+import {NotFoundComponent} from "./components/not-found/not-found.component";
 
 const routes: Routes = [
   { path: "", component: HomeComponent },
@@ -17,13 +19,13 @@ const routes: Routes = [
   { path: "signup", component: SignupComponent },
   { path: 'forgot-password', component: ForgotPasswordComponent },
   { path: 'reset-password', component: ResetPasswordComponent },
+  { path: 'contact', component: ContactComponent },
 
   { path: "profile", component: ProfileComponent, canActivate: [AuthGuard]  },
   { path: "editProfile", component: EditProfileComponent, canActivate: [AuthGuard]  },
   { path: "addOffre", component: AddOffreComponent, canActivate: [AuthGuard]  },
   { path: "cv", component: CvComponent, canActivate: [AuthGuard]},
-  // Redirection wildcard vers login si URL inconnue
-  { path: '**', redirectTo: 'login', pathMatch: 'full' }
+  { path: '**', component: NotFoundComponent }
 ];
 
 @NgModule({
