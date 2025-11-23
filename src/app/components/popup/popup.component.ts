@@ -16,16 +16,16 @@ export class PopupComponent implements OnInit {
 
   }
 
-  submit(file: any, motivation: any) {
-    let motiv = motivation.value;
-    const cv: File = file.files[0];
+  submit(fileCV: any, fileMotivation: any) {
+    const cv: File = fileCV.files[0];
+    const motivationFile: File = fileMotivation.files[0];
 
-    if (!cv || !motiv) {
-      this.toastr.warning('Veuillez remplir tous les champs et joindre un CV.', 'Attention');
+    if (!cv ) {
+      this.toastr.warning('Veuillez joindre un CV.', 'Attention');
       return;
     }
 
-    this.postulService.addPostulation(this.data.offreId, motiv, cv).subscribe({
+    this.postulService.addPostulation(this.data.offreId, motivationFile,cv,).subscribe({
       next: (response: any) => {
         console.log(response);
         this.toastr.success('Votre candidature a été envoyée avec succès !', 'Succès'); // ✅ toast vert

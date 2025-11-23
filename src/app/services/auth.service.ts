@@ -97,6 +97,10 @@ export class AuthService {
     return false;
 
   }
+  getUserRole(): string {
+      return this.role
+  }
+
 
   autoAuthUser() {
     const authData = this.getAuthData();

@@ -12,13 +12,13 @@ export class PostulationService {
   url = environment.apiUrl
   constructor(private http: HttpClient,private auth: AuthService) { }
 
-  addPostulation(offreId:any,motivation:string,cv:any) {
-    let request = new FormData()
-    request.append('motivation',motivation);
-    request.append('cv',cv);
-    request.append('offreId',offreId);
-    request.append('userId',this.auth.loggedUser.id);
-    return this.http.post(this.url+"postulation",request);
+  addPostulation(offreId:any,motivationFile:any,cv:any) {
+    let request = new FormData();
+    request.append('cv', cv);
+    request.append('motivation', motivationFile);
+    request.append('offreId', offreId);
+    request.append('userId', this.auth.loggedUser.id);
+    return this.http.post(this.url + "postulation", request);
   }
 
   verifyPostulation(offreId:number){

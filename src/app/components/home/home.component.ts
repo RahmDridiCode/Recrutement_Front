@@ -32,6 +32,11 @@ export class HomeComponent implements OnInit {
   setService(service:string){
     this.service=service
   }
+  // dans ton component.ts
+  get pendingJobs() {
+    return this.jobs.filter(job => job.status === 'pending');
+  }
+
   postuler(offreId:number){
     this.postulService.verifyPostulation(offreId).subscribe((result:any)=>{
       console.log(result);

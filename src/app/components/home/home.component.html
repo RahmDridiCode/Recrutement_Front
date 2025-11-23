@@ -74,7 +74,7 @@
     <div class="container mt-3 conti" *ngIf="jobs.length > 0">
 
       <div class=" card height-100 row d-flex justify-content-center align-items-center"
-           *ngFor="let job of jobs | filter:serviceInput.value:cityInput.value">
+           *ngFor="let job of pendingJobs | filter:serviceInput.value:cityInput.value">
         <div class="col-md-14">
           <div class="p-3  rounded">
             <div class="d-flex justify-content-between">

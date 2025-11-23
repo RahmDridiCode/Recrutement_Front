@@ -11,7 +11,7 @@
     <button *ngIf="auth.isloggedIn && auth.isRH()" class="btn btn-secondary" aria-label="Example icon-button with heart icon" routerLink="/addOffre">
       Ajouter Une Offre
     </button>
-    <button *ngIf="auth.isloggedIn" class="iconNav navItem" aria-label="Example icon-button with heart icon" routerLink="/login">
+    <button *ngIf="!auth.isloggedIn" class="iconNav navItem" aria-label="Example icon-button with heart icon" routerLink="/login">
       <mat-icon>login</mat-icon>
     </button>
     <button *ngIf="!auth.isloggedIn" class="iconNav navItem" routerLink="/signup">
@@ -26,7 +26,6 @@
         <mat-icon>person</mat-icon>
         <span>mon compte</span>
       </button>
-      <!--
       <button mat-menu-item *ngIf="auth.isStudent()" routerLink="/myPostulations">
         <mat-icon>insert_drive_file</mat-icon>
         <span >mes postulations</span>
@@ -39,8 +38,7 @@
         <mat-icon>insert_drive_file</mat-icon>
         <span >offre</span>
       </button>
-      -->
-      <button *ngIf="auth.isloggedIn"  mat-menu-item (click)="logout()">
+      <button mat-menu-item (click)="logout()">
         <mat-icon>logout</mat-icon>
         <span>Logout</span>
       </button>

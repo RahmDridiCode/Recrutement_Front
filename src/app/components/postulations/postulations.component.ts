@@ -7,6 +7,7 @@ import {AuthService} from "../../services/auth.service";
 import {PostulationService} from "../../services/postulation.service";
 import {DashbordService} from "../../services/dashbord.service";
 import {CvServiceService} from "../../services/cv-service.service";
+import {MotivationService} from "../../services/motivation.service";
 
 @Component({
   selector: 'app-postulations',
@@ -23,7 +24,7 @@ export class PostulationsComponent implements OnInit {
 
   constructor(public postulationService:PostulationService, public auth: AuthService,
               public dashboardService: DashbordService, public dialog: MatDialog,
-              public cvService: CvServiceService, public router : Router, public userService:UserService, public jobService:JobService) { }
+              public cvService: CvServiceService,public motivationService: MotivationService, public router : Router, public userService:UserService, public jobService:JobService) { }
 
   ngOnInit(): void {
     this.dashboardService.url="postulations"
@@ -53,9 +54,18 @@ export class PostulationsComponent implements OnInit {
       this.offersCount=jobs.length;
     })
   }
-  preview(cv:any){
+  previewCv(cv:any){
     this.cvService.cv=cv;
     this.router.navigate(["/cv"]);
+
+
+  }
+
+  previewLettre(motivation:any){
+    this.motivationService.motivation=motivation;
+    this.router.navigate(["/motivation"]);
+
+
   }
   filter(){
     this.router.navigate(['/dashbordRecruter/postulations'])

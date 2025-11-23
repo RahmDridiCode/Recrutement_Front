@@ -34,6 +34,10 @@ import { SearchPostPipe } from './pipes/search-post.pipe';
 import {AuthGuard} from "./auth.guard";
 import {ToastrModule} from "ngx-toastr";
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { DashEtudiantComponent } from './components/dash-etudiant/dash-etudiant.component';
+import { DashRecruterComponent } from './components/dash-recruter/dash-recruter.component';
+import { EtudiantPipe } from './pipes/etudiant.pipe';
+import { MotivationComponent } from './components/motivation/motivation.component';
 
 
 @NgModule({
@@ -56,7 +60,11 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
     PostulationsComponent,
     CvComponent,
     SearchPostPipe,
-    DashboardComponent
+    DashboardComponent,
+    DashEtudiantComponent,
+    DashRecruterComponent,
+    EtudiantPipe,
+    MotivationComponent
   ],
   imports: [
     BrowserModule,

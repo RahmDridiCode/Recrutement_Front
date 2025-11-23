@@ -202,6 +202,7 @@ nav .profile-details i{
   display: inline-block;
   font-size: 35px;
   margin-top: 6px;
+  margin-top: 6px;
   font-weight: 500;
 }
 .home-content .box .indicator{
@@ -424,6 +425,12 @@ nav .profile-details i{
     width: 100%;
     left: 0;
   }
+
+  .user-img{
+    border-radius: 50px;
+    width:32%;
+  }
+
   .sidebar.active ~ .home-section{
     left: 60px;
     width: calc(100% - 60px);
@@ -437,7 +444,6 @@ nav .profile-details i{
     width: calc(100% - 60px);
   }
 }
-
 table.table {
   width: 100%;
   border-collapse: collapse;
@@ -456,4 +462,8 @@ table.table img.user-img {
   height: 60px;
   border-radius: 50%;
   object-fit: cover;
+}
+button {
+  padding: 5px 10px;
+  font-size: 14px;
 }

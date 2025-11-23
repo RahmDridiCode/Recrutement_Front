@@ -10,6 +10,12 @@ import {ProfileComponent} from "./components/profile/profile.component";
 import {EditProfileComponent} from "./components/edit-profile/edit-profile.component";
 import {AddOffreComponent} from "./components/add-offre/add-offre.component";
 import {CvComponent} from "./components/cv/cv.component";
+import {DashEtudiantComponent} from "./components/dash-etudiant/dash-etudiant.component";
+import {DashRecruterComponent} from "./components/dash-recruter/dash-recruter.component";
+import {OffresComponent} from "./components/offres/offres.component";
+import {PostulationsComponent} from "./components/postulations/postulations.component";
+import {RoleGuard} from "./guards/role.guard";
+import {MotivationComponent} from "./components/motivation/motivation.component";
 
 const routes: Routes = [
   { path: "", component: HomeComponent },
@@ -19,11 +25,25 @@ const routes: Routes = [
   { path: 'reset-password', component: ResetPasswordComponent },
 
   { path: "profile", component: ProfileComponent, canActivate: [AuthGuard]  },
+
   { path: "editProfile", component: EditProfileComponent, canActivate: [AuthGuard]  },
   { path: "addOffre", component: AddOffreComponent, canActivate: [AuthGuard]  },
   { path: "cv", component: CvComponent, canActivate: [AuthGuard]},
+  { path: "motivation", component: MotivationComponent, canActivate: [AuthGuard]},
+  { path: "myPostulations", component: DashEtudiantComponent, canActivate: [AuthGuard, RoleGuard],
+    data: { role: 'STUDENT' } },
+
+  {
+    path: "dashbordRecruter", component: DashRecruterComponent, canActivate: [AuthGuard, RoleGuard],
+    data: { role: 'RECRUTER' } , children: [
+      { path: "", component: DashRecruterComponent },
+      { path: "offres", component: OffresComponent },
+      { path: "postulations", component: PostulationsComponent },
+
+    ]
+  },
   // Redirection wildcard vers login si URL inconnue
-  { path: '**', redirectTo: 'login', pathMatch: 'full' }
+  { path: '**', redirectTo: 'login', pathMatch: 'full' },
 ];
 
 @NgModule({

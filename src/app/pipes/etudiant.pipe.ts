@@ -1,9 +1,9 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'searchPost'
+  name: 'etudiant'
 })
-export class SearchPostPipe implements PipeTransform {
+export class EtudiantPipe implements PipeTransform {
 
   transform(value: any[], ...args: string[]): any[] {
     let select = args[0];
@@ -15,9 +15,8 @@ export class SearchPostPipe implements PipeTransform {
       value = value.filter(el=> el.status==select)
     }
     if(input.length>0){
-      value = value.filter(el=> el.user.firstName.toLowerCase().startsWith(input.toLowerCase()))
+      value = value.filter(el=> el.offre.description.toLowerCase().startsWith(input.toLowerCase()))
     }
     return value
   }
-
 }

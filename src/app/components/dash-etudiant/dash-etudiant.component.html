@@ -1,3 +1,32 @@
+<header></header>
+<div class="sidebar">
+  <div class="logo-details">
+    <i class='bx bxl-c-plus-plus'></i>
+    <span class="logo_name">Jobs</span>
+  </div>
+  <ul class="nav-links">
+
+    <li>
+      <a class="active">
+        <i class='bx bxs-user'></i>
+        <span class="links_name">Postulations</span>
+      </a>
+    </li>
+    <li>
+      <a routerLink="/">
+        <i class='bx bxs-home'></i>
+        <span class="links_name">Acceuil</span>
+      </a>
+    </li>
+    <li>
+      <a (click)="logout()">
+        <i class='bx bx-log-out'></i>
+
+        <span class="links_name">Deconnexion</span>
+      </a>
+    </li>
+  </ul>
+</div>
 <section class="home-section">
   <nav>
     <div class="sidebar-button">
@@ -6,7 +35,7 @@
     </div>
     <div class="search-box">
       <input type="text" placeholder="Search..." #input>
-      <i class='bx bx-search' routerLink="/dashbordRecruter/postulations"></i>
+      <i class='bx bx-search' routerLink="/myPostulations"></i>
     </div>
     <div class="profile-details">
       <!--<img src="images/profile.jpg" alt="">-->
@@ -18,7 +47,6 @@
       </select>
     </div>
   </nav>
-
   <div class="home-content">
     <div class="overview-boxes">
       <div class="box">
@@ -43,7 +71,7 @@
         <i class='bx bxs-user-voice cart three'></i>
       </div>
       <div class="box">
-        <div class="right-side ">
+        <div class="right-side">
           <div class="box-topic mb-3">Etudiants</div>
           <div class="number">{{students.length}}</div>
         </div>
@@ -61,22 +89,28 @@
               <th scope="col">Photo</th>
               <th scope="col">nom</th>
               <th scope="col">prenom</th>
-              <th scope="col">Offre</th>
+              <th scope="col">email</th>
+              <th scope="col">phone</th>
+
               <th scope="col">CV</th>
               <th scope="col">Lettre de Motivation</th>
+              <th scope="col">Offre</th>
               <th scope="col">Status</th>
             </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let postulation of postulations | searchPost :select.value: input.value">
+            <tr *ngFor="let postulation of postulations | etudiant:select.value: input.value">
               <td><img src="{{postulation.user?.image || 'http://ssl.gstatic.com/accounts/ui/avatar_2x.png'}}" width="100" class="user-img "></td>
               <td>{{postulation.user.firstName}}</td>
               <td>{{postulation.user.lastName}}</td>
-              <td>{{postulation.offre.description}}</td>
+              <td>{{postulation.user.username}}</td>
+              <td>{{postulation.user.phone}}</td>
+
               <td><button (click)="previewCv(postulation.cv)">Aperçu CV</button></td>
               <td><button (click)="previewLettre(postulation.motivation)">Aperçu lettre</button></td>
+
+              <td>{{postulation.offre.description}}</td>
               <td>{{postulation.status}}</td>
-              <td><i *ngIf="postulation.status!='accepted'" class='bx bx-check check' (click)="accept(postulation.id)"></i></td>
             </tr>
             </tbody>
           </table>
@@ -85,3 +119,6 @@
     </div>
   </div>
 </section>
+
+
+

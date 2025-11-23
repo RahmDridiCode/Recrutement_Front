@@ -1,0 +1,41 @@
+<header></header>
+<div class="sidebar">
+  <div class="logo-details">
+    <i class='bx bxs-graduation'></i>
+    <span class="logo_name">Jobs</span>
+  </div>
+  <ul class="nav-links">
+
+    <li>
+      <a (click)="go(0,'/dashbordRecruter/offres')" [ngClass]="{'active':listNav[0]}">
+        <i class='bx bxs-graduation'></i>
+        <span class="links_name">Offres</span>
+      </a>
+    </li>
+    <li>
+      <a (click)="go(1,'/dashbordRecruter/postulations')" [ngClass]="{'active':listNav[1]}">
+        <i class='bx bxs-user'></i>
+        <span class="links_name">Postulations</span>
+
+      </a>
+    </li>
+    <li>
+      <a (click)="go(0,'/')" >
+        <i class='bx bxs-home'></i>
+        <span class="links_name">Acceuil</span>
+      </a>
+    </li>
+    <li>
+      <a (click)="logout()">
+        <i class='bx bx-log-out'></i>
+
+        <span class="links_name">Deconnexion</span>
+      </a>
+    </li>
+  </ul>
+</div>
+
+<router-outlet></router-outlet>
+
+
+
