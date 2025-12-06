@@ -55,10 +55,11 @@ export class AuthService {
   }
 
   updateUser(form: any) {
-    let user;
+    let user = new FormData();
     console.log(this.loggedUser.id);
     user = new FormData()
     user.append("image", form["image"]);
+
     user.append("firstName", form["firstName"]);
     user.append("lastName", form["lastName"]);
     user.append("username", form["username"]);
@@ -66,7 +67,17 @@ export class AuthService {
     user.append("address", form["address"]);
     user.append("phone", form["phone"]);
     user.append("role", this.loggedUser["role"]);
-    console.log(user.get("image"))
+    // CV
+    if (form["cv"]) {
+      user.append("cv", form["cv"]);
+    }
+    // Keywords : chaque mot-clé ajouté séparément
+    if (form["keywords"] && form["keywords"].length > 0) {
+      form["keywords"].forEach((kw: string) => {
+        user.append("keywords", kw);
+      });
+    }
+
     return this.http.post(this.url + "user/" + this.loggedUser.id, user);
   }
 

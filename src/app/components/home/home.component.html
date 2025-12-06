@@ -1,119 +1,98 @@
 <app-header></app-header>
+
 <div class="cont">
   <img class="cover" src="assets/images/cover2.webp">
   <h1 class="slogan">La Premiere Platforme des Stages en Tunisie</h1>
 </div>
 
-<section>
+<div *ngIf="auth.isStudent()">
+  <app-recommendation></app-recommendation>
+</div>
+<section class="filters-section">
+
   <div class="container-fluid">
-    <br>
     <div class="row">
-      <div class="col-mx-4">
-        <div class="btn-group">
-          <select class="form-select" id="inputGroupSelect045" aria-label="Example select with button addon" #cityInput
-                  (change)="setVille(cityInput.value)">
-            <option selected value="">Toute la Tunisie</option>
-            <option value="Ariana">Ariana</option>
-            <option value="Béja">Béja</option>
-            <option value="Ben Arous">Ben Arous</option>
-            <option value="Bizerte">Bizerte</option>
-            <option value="Gabès">Gabès</option>
-            <option value="Gafsa">Gafsa</option>
-            <option value="Jendouba">Jendouba</option>
-            <option value="Kairouan">Kairouan</option>
-            <option value="Kasserine">Kasserine</option>
-            <option value="Kébili">Kébili</option>
-            <option value="Le Kef">Le Kef</option>
-            <option value="Mahdia">Mahdia</option>
-            <option value="La Manouba">La Manouba</option>
-            <option value="Médenine">Médenine</option>
-            <option value="Monastir">Monastir</option>
-            <option value="Nabeul">Nabeul</option>
-            <option value="Sfax">Sfax</option>
-            <option value="Sidi Bouzid">Sidi Bouzid</option>
-            <option value="Siliana">Siliana</option>
-            <option value="Sousse">Sousse</option>
-            <option value="Tataouine">Tataouine</option>
-            <option value="Touzeur">Touzeur </option>
-            <option value="Tunis">Tunis</option>
-            <option value="Zaghouan">Zaghouan</option>
-          </select>
+      <div class="col-12">
+        <div class="filters">
+          <div class="filter-item">
+            <select class="form-select custom-select" #cityInput (change)="setVille(cityInput.value)">
+              <option selected value="">Toute la Tunisie</option>
+              <option value="Ariana">Ariana</option>
+              <option value="Béja">Béja</option>
+              <option value="Ben Arous">Ben Arous</option>
+              <option value="Bizerte">Bizerte</option>
+              <option value="Gabès">Gabès</option>
+              <option value="Gafsa">Gafsa</option>
+              <option value="Jendouba">Jendouba</option>
+              <option value="Kairouan">Kairouan</option>
+              <option value="Kasserine">Kasserine</option>
+              <option value="Kébili">Kébili</option>
+              <option value="Le Kef">Le Kef</option>
+              <option value="Mahdia">Mahdia</option>
+              <option value="La Manouba">La Manouba</option>
+              <option value="Médenine">Médenine</option>
+              <option value="Monastir">Monastir</option>
+              <option value="Nabeul">Nabeul</option>
+              <option value="Sfax">Sfax</option>
+              <option value="Sidi Bouzid">Sidi Bouzid</option>
+              <option value="Siliana">Siliana</option>
+              <option value="Sousse">Sousse</option>
+              <option value="Tataouine">Tataouine</option>
+              <option value="Touzeur">Touzeur</option>
+              <option value="Tunis">Tunis</option>
+              <option value="Zaghouan">Zaghouan</option>
+            </select>
+          </div>
 
-          <div class="col-mx-6">
-            <div class="input-group">
-              <select class="form-select" id="inputGroupSelect04" aria-label="Example select with button addon"
-                      #serviceInput (change)="setService(serviceInput.value)">
-                <option value="">Domaine</option>
-
-                <option value="Informatique">Informatique</option>
-                <option value="Mécanique">Mécanique</option>
-                <option value="Electrique">Electrique</option>
-                <option value="Génie Civil">Génie Civil</option>
-                <option value="Science">Science</option>
-                <option value="Langues">Langues</option>
-                <option value="Gestion">Gestion</option>
-                <option value="Marketing">Marketing</option>
-                <option value="Finance">Finance</option>
-                <option value="Economie">Economie</option>
-                <option value="Art">Art</option>
-                <option value="Droit">Droit</option>
-                <option value="Droit">Autre</option>
-              </select>
-            </div>
+          <div class="filter-item">
+            <select class="form-select custom-select" #serviceInput (change)="setService(serviceInput.value)">
+              <option value="">Domaine</option>
+              <option value="Informatique">Informatique</option>
+              <option value="Mécanique">Mécanique</option>
+              <option value="Electrique">Electrique</option>
+              <option value="Génie Civil">Génie Civil</option>
+              <option value="Science">Science</option>
+              <option value="Langues">Langues</option>
+              <option value="Gestion">Gestion</option>
+              <option value="Marketing">Marketing</option>
+              <option value="Finance">Finance</option>
+              <option value="Economie">Economie</option>
+              <option value="Art">Art</option>
+              <option value="Droit">Droit</option>
+              <option value="Autre">Autre</option>
+            </select>
           </div>
         </div>
       </div>
     </div>
   </div>
-</section><br><br>
+</section>
 
-<section style="margin-bottom: 30px;">
-  <div class="container-fluid mt-5 mb-5 ">
-    <p>Les dernieres annonces de stage sur Stagy.tn</p>
+<section class="jobs-section">
+  <div class="container-fluid mt-3 mb-5">
+    <div class="section-title">
+      <p> Les dernières annonces d'emplois</p>
+      <span class="underline"></span>
+    </div>
 
-    <div class="container mt-3 conti" *ngIf="jobs.length > 0">
-
-      <div class=" card height-100 row d-flex justify-content-center align-items-center"
-           *ngFor="let job of pendingJobs | filter:serviceInput.value:cityInput.value">
-        <div class="col-md-14">
-          <div class="p-3  rounded">
-            <div class="d-flex justify-content-between">
-              <div class="d-flex flex-row align-items-center">
-                <img src="{{job.user.image || 'http://ssl.gstatic.com/accounts/ui/avatar_2x.png'}}"
-                     class="rounded-circle">
-                <div class="col-md-9">
-                  <div class="ml-2">
-                    <div class="main"> <i class="fa fa-calendar" aria-hidden="true" style="color: #0A2558;"> {{job.date | date :
-                      'dd/MM/yyyy'}}</i>
-                      <h5 style="color: #0A2558;">{{job.user.firstName}} {{job.user.lastName}}</h5>
-                    </div> <br>
-                    <h6>{{job.description}} </h6>
-
-
-
-                  </div>
-                  <br>
-                  <div class="row">
-                    <div class="d-flex flex-row col-md-9"> <span class="mr-2">
-
-                        <a class="btn"><i class="fa fa-map-marker" aria-hidden="true" style="color: #0A2558;"></i> <strong>
-                            {{job.adresse}},{{job.ville}}</strong></a>
-
-                        <a class="btn"><i class="fa fa-tag" aria-hidden="true" style="color: #0A2558;"> </i> <strong>
-                            {{job.service}}</strong></a>
-
-                      </span>
-
-                    </div>
-
-                    <button class="btn btn-primary col-md-3" (click)="postuler(job.id)"
-                            *ngIf="auth.isStudent()" style="background-color: #0A2558;">Postuler</button>
-                  </div>
-
-                </div>
-
-
+    <div class="row">
+      <div class="col-md-6 mb-4" *ngFor="let job of pendingJobs | filter:serviceInput.value:cityInput.value">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body">
+            <div class="d-flex align-items-center mb-3">
+              <img [src]="job.user.image || 'http://ssl.gstatic.com/accounts/ui/avatar_2x.png'" class="rounded-circle mr-3">
+              <div>
+                <h5>{{job.user.firstName}} {{job.user.lastName}}</h5>
+                <small><i class="fa fa-calendar"></i> {{job.date | date:'dd/MM/yyyy'}}</small>
               </div>
+            </div>
+            <p>{{job.description}}</p>
+            <div class="d-flex justify-content-between align-items-center">
+              <div>
+                <span class="badge badge-light"><i class="fa fa-map-marker"></i> {{job.adresse}}, {{job.ville}}</span>
+                <span class="badge badge-light"><i class="fa fa-tag"></i> {{job.service}}</span>
+              </div>
+              <button *ngIf="auth.isStudent()" class="btn btn-primary" (click)="postuler(job.id)">Postuler</button>
             </div>
           </div>
         </div>
@@ -121,7 +100,7 @@
     </div>
 
     <div *ngIf="jobs.length < 1">
-      <p><i class='bx bxs-error'></i> Il n'y a pas encore des offres de stage disponible maintenent!!</p>
+      <p><i class='bx bxs-error'></i> Il n'y a pas encore des offres de stage disponibles !</p>
     </div>
   </div>
 </section>

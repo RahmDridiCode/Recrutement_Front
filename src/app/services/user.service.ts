@@ -14,7 +14,7 @@ export class UserService {
     return this.http.get(this.url+"user/list/"+role);
   }
   getUserAllUsers(){
-    return this.http.get(this.url+"user/list/");
+    return this.http.get(this.url+"user/list");
   }
 
   deleteUser(id : number){

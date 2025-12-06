@@ -15,6 +15,7 @@
         <option value="" selected>Status</option>
         <option value="pending" >Pending</option>
         <option value="accepted" >Accepted</option>
+        <option value="refused" >Refused</option>
       </select>
     </div>
   </nav>
@@ -62,21 +63,27 @@
               <th scope="col">nom</th>
               <th scope="col">prenom</th>
               <th scope="col">Offre</th>
+              <th scope="col">Score</th>
               <th scope="col">CV</th>
               <th scope="col">Lettre de Motivation</th>
               <th scope="col">Status</th>
             </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let postulation of postulations | searchPost :select.value: input.value">
+            <tr *ngFor="let postulation of postulationsWithScores | searchPost :select.value: input.value">
               <td><img src="{{postulation.user?.image || 'http://ssl.gstatic.com/accounts/ui/avatar_2x.png'}}" width="100" class="user-img "></td>
               <td>{{postulation.user.firstName}}</td>
               <td>{{postulation.user.lastName}}</td>
               <td>{{postulation.offre.description}}</td>
-              <td><button (click)="previewCv(postulation.cv)">Aperçu CV</button></td>
+              <td>{{postulation.score | number:'1.2-2'}}</td> <!-- Score -->
+              <td><button (click)="previewCv(postulation)">Aperçu CV</button></td>
               <td><button (click)="previewLettre(postulation.motivation)">Aperçu lettre</button></td>
               <td>{{postulation.status}}</td>
-              <td><i *ngIf="postulation.status!='accepted'" class='bx bx-check check' (click)="accept(postulation.id)"></i></td>
+              <td>
+                <i *ngIf="postulation.status === 'pending'" class='bx bx-check check' (click)="accept(postulation.id)"></i>
+                <i *ngIf="postulation.status === 'pending'" class='bx bx-x refuse' (click)="refuse(postulation.id)"></i>
+              </td>
+
             </tr>
             </tbody>
           </table>

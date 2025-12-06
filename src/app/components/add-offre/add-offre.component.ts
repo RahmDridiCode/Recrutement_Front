@@ -4,6 +4,8 @@ import {Router} from "@angular/router";
 import {AuthService} from "../../services/auth.service";
 import {JobService} from "../../services/job.service";
 import {ToastrService} from "ngx-toastr";
+import { COMMA, ENTER } from '@angular/cdk/keycodes';
+import { MatChipInputEvent } from '@angular/material/chips';
 
 @Component({
   selector: 'app-add-offre',
@@ -12,6 +14,8 @@ import {ToastrService} from "ngx-toastr";
 })
 export class AddOffreComponent implements OnInit {
   message! :string;
+  keywordsArray: string[] = []; // tableau des tags
+  separatorKeys: number[] = [ENTER, COMMA];
 
   invalid=false;
   jobOffer = new FormGroup({
@@ -22,15 +26,21 @@ export class AddOffreComponent implements OnInit {
     description: new FormControl('',[Validators.required]),
   });
   constructor(private jobService : JobService,private router : Router,private authService : AuthService,  private toastr: ToastrService ) { }
-
-
-
-
-
   ngOnInit(): void {
-
-
   }
+
+  addKeyword(event: MatChipInputEvent) {
+    const value = (event.value || '').trim();
+    if (value && !this.keywordsArray.includes(value)) {
+      this.keywordsArray.push(value);
+    }
+    event.chipInput!.clear();
+  }
+
+  removeKeyword(index: number) {
+    this.keywordsArray.splice(index, 1);
+  }
+
 
 
   addJob() {
@@ -40,7 +50,8 @@ export class AddOffreComponent implements OnInit {
         description: this.jobOffer.value.description,
         service: this.jobOffer.value.service,
         address: this.jobOffer.value.address,
-        ville: this.jobOffer.value.ville
+        ville: this.jobOffer.value.ville,
+        keywords: this.keywordsArray
       };
 
       this.jobService.ajouterJob(job).subscribe({

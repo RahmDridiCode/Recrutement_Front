@@ -3,6 +3,8 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {AuthService} from "../../services/auth.service";
 import {Router} from "@angular/router";
 import {ToastrService} from "ngx-toastr";
+import { COMMA, ENTER } from '@angular/cdk/keycodes';
+import { MatChipInputEvent } from '@angular/material/chips';
 
 @Component({
   selector: 'app-edit-profile',
@@ -14,7 +16,10 @@ export class EditProfileComponent implements OnInit {
   user:any;
   imagePreview:any=null
   userForm:any;
-  constructor(private authService: AuthService, private router:Router,private toastr: ToastrService) { }
+  cvFile: File | null = null;       // 🔹 fichier CV
+  keywordsArray: string[] = [];      // 🔹 mots clés
+  separatorKeys: number[] = [ENTER, COMMA];
+  constructor(public authService: AuthService, private router:Router,private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.user = this.authService.loggedUser;
@@ -27,6 +32,10 @@ export class EditProfileComponent implements OnInit {
       image:new FormControl(''),
     });
     this.imagePreview=this.user.image;
+    // initialiser les mots clés existants si disponibles
+    if(this.user.keywords) {
+      this.keywordsArray = [...this.user.keywords];
+    }
   }
 
   onImagePicked(imageInput: any,prev:any) {
@@ -38,10 +47,31 @@ export class EditProfileComponent implements OnInit {
     };
     reader.readAsDataURL(file);
   }
+  onCvPicked(event: any) {
+    this.cvFile = event.target.files[0];
+  }
+
+  addKeyword(event: MatChipInputEvent) {
+    const value = (event.value || '').trim();
+    if (value && !this.keywordsArray.includes(value)) {
+      this.keywordsArray.push(value);
+    }
+    event.chipInput!.clear();
+  }
+
+  removeKeyword(index: number) {
+    this.keywordsArray.splice(index, 1);
+  }
 
   submit() {
     if (this.userForm.valid) {
-      this.authService.updateUser({ id: this.user.id, ...this.userForm.value })
+      const userData = {
+        id: this.user.id,
+        ...this.userForm.value,
+        cv: this.cvFile,
+        keywords: this.keywordsArray
+      };
+      this.authService.updateUser(userData)
         .subscribe({
           next: (result) => {
             this.toastr.success('Profil mis à jour avec succès !', 'Succès');

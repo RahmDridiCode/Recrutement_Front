@@ -28,6 +28,11 @@ export class PostulationService {
   getPostulationByOffreUser(userId:number){
     return this.http.get(this.url+"postulation/"+userId);
   }
+
+  getTopPostulationsByOffre(userId: number) {
+    return this.http.get<any[]>(this.url + "api/recommendations/candidats/top/" + userId);
+  }
+
   getPostulationByEtuddiantId(){
     return this.http.get(this.url+"postulation/etudiant/"+this.auth.loggedUser.id);
   }
@@ -40,6 +45,11 @@ export class PostulationService {
   acceptPostulation(id:number){
     return this.http.get(this.url+"postulation/accept/"+id);
   }
+
+  refusePostulation(id: number) {
+    return this.http.get(this.url + "postulation/refuse/" + id);
+  }
+
   getPostulationClosed(userId:number){
     return this.http.get(this.url+"postulation/user/closed/"+userId);
   }

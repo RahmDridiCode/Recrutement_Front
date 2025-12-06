@@ -38,6 +38,11 @@ import { DashEtudiantComponent } from './components/dash-etudiant/dash-etudiant.
 import { DashRecruterComponent } from './components/dash-recruter/dash-recruter.component';
 import { EtudiantPipe } from './pipes/etudiant.pipe';
 import { MotivationComponent } from './components/motivation/motivation.component';
+import {MatInputModule} from "@angular/material/input";
+import {MatChipsModule} from "@angular/material/chips";
+import { RecommendationComponent } from './components/recommendation/recommendation.component';
+import {SwiperModule} from "swiper/angular";
+
 
 
 @NgModule({
@@ -64,7 +69,9 @@ import { MotivationComponent } from './components/motivation/motivation.componen
     DashEtudiantComponent,
     DashRecruterComponent,
     EtudiantPipe,
-    MotivationComponent
+    MotivationComponent,
+    RecommendationComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -81,6 +88,11 @@ import { MotivationComponent } from './components/motivation/motivation.componen
     MatCardModule,
     NgxExtendedPdfViewerModule,
     BrowserAnimationsModule,
+    MatChipsModule,
+    MatIconModule,
+    MatInputModule,
+    SwiperModule,
+
     ToastrModule.forRoot({
       positionClass: 'toast-top-right',
       timeOut: 3000,

@@ -160,6 +160,11 @@ nav .search-box .bx-search {
   border-radius: 50px;
   width:32%;
 }
+.refuse{
+  font-size:32px;
+  color:red;
+  cursor: pointer;
+}
 .check{
   font-size:32px;
   color:#2BD47D;

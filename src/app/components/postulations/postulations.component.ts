@@ -15,7 +15,7 @@ import {MotivationService} from "../../services/motivation.service";
   styleUrls: ['./postulations.component.css']
 })
 export class PostulationsComponent implements OnInit {
-  postulations:any[]=[]
+  postulationsWithScores: any[] = []; // Fusion postulation + score
   recruters:any[]=[];
   students:any[]=[];
   users:any[]=[]
@@ -28,10 +28,15 @@ export class PostulationsComponent implements OnInit {
 
   ngOnInit(): void {
     this.dashboardService.url="postulations"
-    this.postulationService.getPostulationByOffreUser(this.auth.loggedUser.id).subscribe((result:any)=>{
-      this.postulations = result;
-      console.log(result);
-    })
+    this.postulationService.getTopPostulationsByOffre(this.auth.loggedUser.id)
+      .subscribe((result: any) => {
+        // Fusionner postulations + scores
+        this.postulationsWithScores = result.map((r:any, i:any) => ({
+          ...r.postulation,  // toutes les propriétés de postulation
+          score: r.score     // ajouter score
+        }));
+        console.log(this.postulationsWithScores);
+      });
 
     this.userService.getUserByRole("STUDENT").subscribe((response:any) => {
       this.students=response;
@@ -54,8 +59,9 @@ export class PostulationsComponent implements OnInit {
       this.offersCount=jobs.length;
     })
   }
-  previewCv(cv:any){
-    this.cvService.cv=cv;
+  previewCv(postulation:any){
+    this.cvService.cv = postulation.cv;           // CV PDF
+    this.cvService.etudiant = postulation.user;   // Étudiant complet
     this.router.navigate(["/cv"]);
 
 
@@ -74,9 +80,21 @@ export class PostulationsComponent implements OnInit {
   accept(id:number){
     this.postulationService.acceptPostulation(id).subscribe((result)=>{
       console.log(result);
-      let postulation = this.postulations.find(el=> el.id === id);
-      let index = this.postulations.indexOf(postulation);
-      this.postulations[index] = result;
+      let postulation = this.postulationsWithScores.find(el=> el.id === id);
+      let index = this.postulationsWithScores.indexOf(postulation);
+      this.postulationsWithScores[index] = result;
     })
   }
+
+  refuse(id: number) {
+    this.postulationService.refusePostulation(id).subscribe((result) => {
+      console.log(result);
+
+      // Met à jour la liste localement
+      let postulation = this.postulationsWithScores.find(el => el.id === id);
+      let index = this.postulationsWithScores.indexOf(postulation);
+      this.postulationsWithScores[index] = result;
+    });
+  }
+
 }

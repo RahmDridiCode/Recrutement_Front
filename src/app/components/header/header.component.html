@@ -11,6 +11,7 @@
     <button *ngIf="auth.isloggedIn && auth.isRH()" class="btn btn-secondary" aria-label="Example icon-button with heart icon" routerLink="/addOffre">
       Ajouter Une Offre
     </button>
+
     <button *ngIf="!auth.isloggedIn" class="iconNav navItem" aria-label="Example icon-button with heart icon" routerLink="/login">
       <mat-icon>login</mat-icon>
     </button>

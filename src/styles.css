@@ -1,7 +1,19 @@
 /* You can add global styles to this file, and also import other style files */
 /* Import ngx-toastr styles en premier */
 @import 'ngx-toastr/toastr.css';
+@import 'swiper/swiper-bundle.min.css';
+
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
+.mySwiper { width: 100%; height: 250px; }
+.card { background: #f5f5f5; padding: 10px; border-radius: 5px; }
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
 
+.page-content {
+  min-height: calc(100vh - 100px); /* 100px = hauteur approximative de ton footer */
+}

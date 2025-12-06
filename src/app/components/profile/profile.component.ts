@@ -12,6 +12,18 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.user = this.AuthService.loggedUser;
+    if (!this.user.keywords) {
+      this.user.keywords = [];
+    }
   }
+
+  getFileName(path: string): string {
+    if (!path) return '';
+    // split sur slash / ou backslash \
+    return path.split(/(\/|\\)/g).pop() || '';
+  }
+
+
+
 
 }
